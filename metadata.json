@@ -1,0 +1,6 @@
+{
+  "name": "at it hash",
+  "description": "A notebook doodle tactical 3-piece tic-tac-toe game where players place and slide @ and # pieces with local and online multiplayer. Built by AqshaiDev.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

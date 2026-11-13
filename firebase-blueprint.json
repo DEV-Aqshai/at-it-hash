@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Room",
+      "description": "Multiplayer game room for At It Hash 3-piece tactical tic-tac-toe",
+      "type": "object",
+      "properties": {
+        "roomId": { "type": "string", "description": "Unique 6-char room code" },
+        "hostUid": { "type": "string", "description": "UID of Player 1 (@)" },
+        "hostName": { "type": "string", "description": "Display name of Player 1" },
+        "guestUid": { "type": "string", "description": "UID of Player 2 (#)" },
+        "guestName": { "type": "string", "description": "Display name of Player 2" },
+        "hasPasscode": { "type": "boolean", "description": "Whether room requires passcode" },
+        "passcode": { "type": "string", "description": "Optional room passcode" },
+        "status": { "type": "string", "enum": ["waiting", "playing", "finished"], "description": "Room status" },
+        "turn": { "type": "string", "enum": ["@", "#"], "description": "Current player turn" },
+        "phase": { "type": "string", "enum": ["drop", "move"], "description": "Current game phase" },
+        "board": { "type": "array", "description": "9 board positions with @, #, or empty" },
+        "atPiecesPlaced": { "type": "integer", "description": "Count of @ pieces placed (0..3)" },
+        "hashPiecesPlaced": { "type": "integer", "description": "Count of # pieces placed (0..3)" },
+        "winner": { "type": "string", "description": "Winner symbol (@, #, draw, or empty)" },
+        "winPattern": { "type": "array", "description": "3 winning grid indices" },
+        "repeatMoveCount": { "type": "integer", "description": "Consecutive repeated moves (draw at 5)" },
+        "lastMoveFrom": { "type": "integer", "description": "Origin index of last move (-1 for drop)" },
+        "lastMoveTo": { "type": "integer", "description": "Destination index of last move" },
+        "lastMovePiece": { "type": "string", "description": "Piece moved (@ or #)" },
+        "rematchRequestedBy": { "type": "array", "description": "List of UIDs requesting rematch" },
+        "memberUids": { "type": "array", "description": "List of UIDs participating in room" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp via serverTimestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Update timestamp via serverTimestamp" }
+      },
+      "required": [
+        "roomId",
+        "hostUid",
+        "hostName",
+        "hasPasscode",
+        "status",
+        "turn",
+        "phase",
+        "board",
+        "atPiecesPlaced",
+        "hashPiecesPlaced",
+        "winner",
+        "winPattern",
+        "repeatMoveCount",
+        "lastMoveFrom",
+        "lastMoveTo",
+        "lastMovePiece",
+        "rematchRequestedBy",
+        "memberUids",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/rooms/{roomId}": {
+      "schema": { "$ref": "#/entities/Room" },
+      "description": "Multiplayer rooms for active and waiting games"
+    }
+  }
+}
